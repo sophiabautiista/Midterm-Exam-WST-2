@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/css" href="style.css"?>
 
 <library_users>
     <user>
         <picture>https://i.pinimg.com/736x/a2/9d/2f/a29d2f6c1be480110ada82891ef3a9a8.jpg</picture>
-        <name>Juan Dela Cruz</name>
+        <name>Jeon Jungkook</name>
         <course>BSIT</course>
         <year_level_section>3bg2</year_level_section>
         <adviser>Mr. Ramon Dela Cruz</adviser>
@@ -12,7 +11,7 @@
     </user>
     <user>
         <picture>https://i.pinimg.com/736x/a2/9d/2f/a29d2f6c1be480110ada82891ef3a9a8.jpg</picture>
-        <name>Juan Dela Cruz</name>
+        <name>Kim Namjoon</name>
         <course>BSIT</course>
         <year_level_section>3bg2</year_level_section>
         <adviser>Mr. Ramon Dela Cruz</adviser>
@@ -20,7 +19,7 @@
     </user>
     <user>
         <picture>https://i.pinimg.com/736x/a2/9d/2f/a29d2f6c1be480110ada82891ef3a9a8.jpg</picture>
-        <name>Juan Dela Cruz</name>
+        <name>Park Jimin</name>
         <course>BSIT</course>
         <year_level_section>3bg2</year_level_section>
         <adviser>Mr. Ramon Dela Cruz</adviser>
