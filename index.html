@@ -8,77 +8,105 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #fff;
             margin: 0;
             padding: 20px;
         }
+        
         h1 {
             font-size: 48px;
-            margin: 10px 0;
+            margin-bottom: 10px;
         }
+        
         h2 {
             font-size: 24px;
             margin-bottom: 30px;
         }
-        .user-container {
+        
+        #user-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+            justify-content: center;
         }
+        
         .user-card {
-            border: 3px solid #000;
-            padding: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            border: 3px solid #000;
+            padding: 15px;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            box-sizing: border-box;
         }
+
         .user-card img {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
+            margin-left: 15px;
         }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-info p {
+            margin: 3px 0;
+            font-size: 12px;
+        }
+
+        .user-card:hover {
+            transform: scale(1.05);
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2);
+                }
+  
     </style>
 </head>
 <body>
-    <h1>ABC Colleges</h1>
-    <h2>Library Users</h2>
-    <div class="user-container" id="users"></div>
+  <h1>ABC Colleges</h1>
+  <h2>Library users</h2>
+  <div id="user-cards"></div>
 
-    <script>
-        async function loadUsers() {
-            const response = await fetch('Sophia_Bautista.xml');
-            const xml = await response.text();
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xml, 'application/xml');
-            const users = xmlDoc.getElementsByTagName('user');
+  <script>
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'Sophia_Bautista.xml', true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const xml = xhr.responseXML;
+        const users = xml.getElementsByTagName('user');
+        const container = document.getElementById('user-cards');
+        
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
+          const picture = user.getElementsByTagName('picture')[0].textContent;
+          const name = user.getElementsByTagName('name')[0].textContent;
+          const course = user.getElementsByTagName('course')[0].textContent;
+          const year = user.getElementsByTagName('year')[0].textContent;
+          const adviser = user.getElementsByTagName('adviser')[0].textContent;
+          const schoolYear = user.getElementsByTagName('schoolYear')[0].textContent;
 
-            const container = document.getElementById('users');
-            for (let user of users) {
-                const picture = user.getElementsByTagName('picture')[0].textContent;
-                const name = user.getElementsByTagName('name')[0].textContent;
-                const course = user.getElementsByTagName('course')[0].textContent;
-                const year = user.getElementsByTagName('year_level_section')[0].textContent;
-                const adviser = user.getElementsByTagName('adviser')[0].textContent;
-                const schoolYear = user.getElementsByTagName('school_year')[0].textContent;
-
-                const card = document.createElement('div');
-                card.classList.add('user-card');
-                card.innerHTML = `
-                    <img src="${picture}" alt="User Photo">
-                    <div>
-                        <p><strong>Name:</strong> ${name}</p>
-                        <p><strong>Course:</strong> ${course}</p>
-                        <p><strong>Year Level / Section:</strong> ${year}</p>
-                        <p><strong>Adviser:</strong> ${adviser}</p>
-                        <p><strong>School Year:</strong> ${schoolYear}</p>
-                    </div>
-                `;
-                container.appendChild(card);
-            }
+          const card = document.createElement('div');
+          card.classList.add('user-card');
+          card.innerHTML = `
+            <img src='${picture}' alt='Profile Picture'>
+            <div class='user-info'>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Course:</strong> ${course}</p>
+              <p><strong>Year Level / Section:</strong> ${year}</p>
+              <p><strong>Adviser:</strong> ${adviser}</p>
+              <p><strong>School Year:</strong> ${schoolYear}</p>
+            </div>
+          `;
+          container.appendChild(card);
         }
-        loadUsers();
-    </script>
+      }
+    };
+    xhr.send();
+  </script>
 </body>
 </html>
